@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 
 import { Task } from '@/lib/types/Task';
 
@@ -22,7 +22,6 @@ import { Progress } from '@/components/ui/progress';
 import Date from '@/components/Date';
 
 import { Button } from './components/ui/button';
-import { useTasks } from './api/hooks';
 import { formatDate } from './lib/utils';
 import DataTable from './components/DataTable';
 
@@ -52,12 +51,7 @@ export default function App() {
     syncTasks(newState);
   };
 
-  //progresso de 0 a 100
-
   const progress = tasks.length ? Math.round((tasks.filter((t) => t.done).length / tasks.length) * 100) : 0;
-
-  const pendingTasks = tasks.filter((t) => !t.done);
-  const completedTasks = tasks.filter((t) => t.done);
 
   useEffect(() => {
     console.log('useTasks');

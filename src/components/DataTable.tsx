@@ -61,13 +61,13 @@ export default function DataTable<TData, TValue>({ columns, data, setCategory, c
   return (
     <div>
       <div className='flex items-center py-4'>
-        <div className='flex justify-between  w-full '>
-          <div className='flex gap-2'>
+        <div className='flex justify-between gap-2  w-full flex-col md:flex-row '>
+          <div className='flex gap-2 flex-col-reverse md:flex-row '>
             <Input
               placeholder='Pesquisar'
               value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
               onChange={(event) => table.getColumn('title')?.setFilterValue(event.target.value)}
-              className='max-w-sm'
+              className='w-full md:max-w-sm'
             />
 
             <Button variant='outline' onClick={() => setCategory('all')} disabled={category === 'all'}>
