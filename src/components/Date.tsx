@@ -1,7 +1,7 @@
 export default function Header() {
   const date = new Date();
 
-  const [day, month, year] = date.toLocaleDateString().split('/');
+  const [day, _, year] = date.toLocaleDateString().split('/');
 
   const [dayName] = date.toLocaleDateString('en-US', { weekday: 'long' }).split(' ');
 
