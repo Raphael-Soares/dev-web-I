@@ -9,7 +9,6 @@ import { Task } from '@/lib/types/Task';
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { DialogClose } from '@radix-ui/react-dialog';
-import { useTasks } from '@/api/hooks';
 
 export default function Form({ addTask }: { addTask: (task: Task) => void }) {
   const [title, setTitle] = useState('');
