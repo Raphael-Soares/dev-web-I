@@ -21,7 +21,14 @@ export default function DatePicker({ date, setDate }: Props) {
         </Button>
       </PopoverTrigger>
       <PopoverContent className='w-auto p-0'>
-        <Calendar mode='single' selected={date} onSelect={(newDate) => setDate(newDate || new Date())} initialFocus required />
+        <Calendar
+          mode='single'
+          selected={date}
+          onSelect={(newDate) => setDate(newDate || new Date())}
+          fromDate={new Date()}
+          initialFocus
+          required
+        />
       </PopoverContent>
     </Popover>
   );

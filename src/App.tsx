@@ -24,9 +24,12 @@ import Date from '@/components/Date';
 import { Button } from './components/ui/button';
 import { formatDate } from './lib/utils';
 import DataTable from './components/DataTable';
+import FormEdit from './components/FormEdit';
 
 export default function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [open, setOpen] = useState(false);
+  const [taskToEdit, setTaskToEdit] = useState<Task | null>(null);
 
   const addTask = (task: Task) => {
     const newState = [...tasks, task];
@@ -51,10 +54,20 @@ export default function App() {
     syncTasks(newState);
   };
 
+  const updateTask = (task: Task) => {
+    const newState = tasks.map((t: Task) => {
+      if (t.id === task.id) {
+        return task;
+      }
+      return t;
+    });
+    localStorage.setItem('tasks', JSON.stringify(newState));
+    syncTasks(newState);
+  };
+
   const progress = tasks.length ? Math.round((tasks.filter((t) => t.done).length / tasks.length) * 100) : 0;
 
   useEffect(() => {
-    console.log('useTasks');
     const tasks = localStorage.getItem('tasks');
     setTasks(tasks ? JSON.parse(tasks) : []);
   }, []);
@@ -144,8 +157,14 @@ export default function App() {
               <DropdownMenuContent>
                 <DropdownMenuLabel>{task.title}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => {
+                    setTaskToEdit(task);
+                    setOpen(true);
+                  }}>
+                  Edit
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => removeTask(task)}>Remove</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => removeTask(task)}>Edit</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -169,6 +188,8 @@ export default function App() {
         <CardContent className='space-y-2'>
           <DataTable columns={columns} data={data} setCategory={setCategory} category={category} addTask={addTask} />
         </CardContent>
+
+        {taskToEdit && <FormEdit task={taskToEdit} updateTask={updateTask} open={open} setOpen={setOpen} />}
 
         <CardFooter className='flex justify-between'></CardFooter>
       </Card>
