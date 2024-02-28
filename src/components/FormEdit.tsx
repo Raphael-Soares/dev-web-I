@@ -22,15 +22,17 @@ export default function FormEdit({ task, updateTask, open, setOpen }: Props) {
   const [dueDate, setDueDate] = useState(task?.dueDate || new Date());
   const [priority, setPriority] = useState<'low' | 'medium' | 'high'>(task?.priority || 'low');
 
-  const handleUpdateTask = (e: React.SyntheticEvent) => {
+  const handleUpdateTask = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
 
     const newTask: Task = {
       ...task,
-      title,
-      description,
+      title: formData.get('title') as string,
+      description: formData.get('description') as string,
       dueDate,
-      priority,
+      priority: formData.get('priority') as Task['priority'],
       updatedAt: new Date().toISOString()
     };
     updateTask(newTask);
@@ -51,13 +53,13 @@ export default function FormEdit({ task, updateTask, open, setOpen }: Props) {
                 <Label htmlFor='name' className='text-right'>
                   Name
                 </Label>
-                <Input id='name' required className='col-span-3' onChange={(e) => setTitle(e.target.value)} value={title} />
+                <Input id='name' required className='col-span-3' name='title' defaultValue={task.title} />
               </div>
               <div className='grid grid-cols-4 items-center gap-4'>
                 <Label htmlFor='username' className='text-right'>
                   Description
                 </Label>
-                <Input id='username' required className='col-span-3' onChange={(e) => setDescription(e.target.value)} value={description} />
+                <Input id='username' required className='col-span-3' name='description' defaultValue={task.description} />
               </div>
 
               <div className='grid grid-cols-4 items-center gap-4'>
@@ -67,7 +69,7 @@ export default function FormEdit({ task, updateTask, open, setOpen }: Props) {
 
               <div className='grid grid-cols-4 items-center gap-4'>
                 <Label className='text-right'>Priority</Label>
-                <Select required>
+                <Select required name='priority' defaultValue={task.priority}>
                   <SelectTrigger className='w-[280px]'>
                     <SelectValue placeholder='Select the priority' />
                   </SelectTrigger>

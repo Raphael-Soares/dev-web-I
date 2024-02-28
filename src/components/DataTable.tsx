@@ -16,8 +16,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 import { useState } from 'react';
-import Form from './Form';
 import { Task } from '@/lib/types/Task';
+import { Plus } from 'lucide-react';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -26,9 +26,11 @@ interface DataTableProps<TData, TValue> {
   setCategory: (str: 'all' | 'pending' | 'done') => void;
   category: 'all' | 'pending' | 'done';
   addTask: (task: Task) => void;
+  openNew: boolean;
+  setOpenNew: (open: boolean) => void;
 }
 
-export default function DataTable<TData, TValue>({ columns, data, setCategory, category, addTask }: DataTableProps<TData, TValue>) {
+export default function DataTable<TData, TValue>({ columns, data, setCategory, category, setOpenNew }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -82,8 +84,11 @@ export default function DataTable<TData, TValue>({ columns, data, setCategory, c
               Pending
             </Button>
           </div>
-          <Form addTask={addTask} />
         </div>
+        <Button variant='outline' onClick={() => setOpenNew(true)}>
+          <Plus className='size-4 mr-2' />
+          New todo
+        </Button>
       </div>
       <div className='bg-white border rounded-md'>
         <Table>

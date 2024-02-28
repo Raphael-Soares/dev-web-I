@@ -25,13 +25,17 @@ import { Button } from './components/ui/button';
 import { formatDate } from './lib/utils';
 import DataTable from './components/DataTable';
 import FormEdit from './components/FormEdit';
+import Form from './components/Form';
 
 export default function App() {
-  const [tasks, setTasks] = useState<Task[]>([]);
   const [open, setOpen] = useState(false);
+  const [openNew, setOpenNew] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState<Task | null>(null);
 
+  const [tasks, setTasks] = useState<Task[]>([]);
+
   const addTask = (task: Task) => {
+    console.log('task', task);
     const newState = [...tasks, task];
     syncTasks(newState);
     localStorage.setItem('tasks', JSON.stringify(newState));
@@ -186,10 +190,19 @@ export default function App() {
           <Progress value={progress} />
         </CardHeader>
         <CardContent className='space-y-2'>
-          <DataTable columns={columns} data={data} setCategory={setCategory} category={category} addTask={addTask} />
+          <DataTable
+            columns={columns}
+            data={data}
+            setCategory={setCategory}
+            category={category}
+            addTask={addTask}
+            openNew={openNew}
+            setOpenNew={setOpenNew}
+          />
         </CardContent>
 
         {taskToEdit && <FormEdit task={taskToEdit} updateTask={updateTask} open={open} setOpen={setOpen} />}
+        <Form addTask={addTask} open={openNew} setOpen={setOpenNew} />
 
         <CardFooter className='flex justify-between'></CardFooter>
       </Card>
