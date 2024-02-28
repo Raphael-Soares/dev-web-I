@@ -17,10 +17,7 @@ type Props = {
 };
 
 export default function FormEdit({ task, updateTask, open, setOpen }: Props) {
-  const [title, setTitle] = useState(task?.title || '');
-  const [description, setDescription] = useState(task?.description || '');
   const [dueDate, setDueDate] = useState(task?.dueDate || new Date());
-  const [priority, setPriority] = useState<'low' | 'medium' | 'high'>(task?.priority || 'low');
 
   const handleUpdateTask = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -76,15 +73,9 @@ export default function FormEdit({ task, updateTask, open, setOpen }: Props) {
                   <SelectContent>
                     <SelectGroup>
                       <SelectLabel>Priority</SelectLabel>
-                      <SelectItem value='low' onClick={() => setPriority('low')}>
-                        Low
-                      </SelectItem>
-                      <SelectItem value='medium' onClick={() => setPriority('medium')}>
-                        Medium
-                      </SelectItem>
-                      <SelectItem value='high' onClick={() => setPriority('high')}>
-                        High
-                      </SelectItem>
+                      <SelectItem value='low'>Low</SelectItem>
+                      <SelectItem value='medium'>Medium</SelectItem>
+                      <SelectItem value='high'>High</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
