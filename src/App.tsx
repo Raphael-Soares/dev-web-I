@@ -183,7 +183,7 @@ export default function App() {
   ];
 
   return (
-    <div className='flex h-screen w-full items-center justify-center bg-slate-50 '>
+    <div className='flex h-screen w-full items-center justify-center bg-slate-100 '>
       <Card className='max-w-6xl w-full'>
         <CardHeader>
           <Date />
