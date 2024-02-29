@@ -84,11 +84,11 @@ export default function DataTable<TData, TValue>({ columns, data, setCategory, c
               Pending
             </Button>
           </div>
+          <Button variant='outline' onClick={() => setOpenNew(true)}>
+            <Plus className='size-4 mr-2' />
+            New todo
+          </Button>
         </div>
-        <Button variant='outline' onClick={() => setOpenNew(true)}>
-          <Plus className='size-4 mr-2' />
-          New todo
-        </Button>
       </div>
       <div className='bg-white border rounded-md'>
         <Table>
